@@ -67,7 +67,7 @@ export default function Home() {
     };
 
     // Update a cat
-    const handleBlur = async (cat) => {
+    const handleSave = async (cat) => {
         await api.put(`/api/cats/${cat.id}/`, cat);
         fetchCats();
     };
@@ -112,7 +112,6 @@ export default function Home() {
                                       className="w-full"
                                       value={cat.name}
                                       onChange={e => handleChangeTable(cat.id, "name", e.target.value)}
-                                      onBlur={() => handleBlur(cat)}
                                   />
                               </td>
                               <td className="border border-gray-400 px-4 py-2">
@@ -120,7 +119,6 @@ export default function Home() {
                                       className="w-full"
                                       value={cat.breed}
                                       onChange={e => handleChangeTable(cat.id, "breed", e.target.value)}
-                                      onBlur={() => handleBlur(cat)}
                                   />
                               </td>
                               <td className="border border-gray-400 px-4 py-2">
@@ -129,7 +127,6 @@ export default function Home() {
                                       className="w-full"
                                       value={cat.years_of_experience}
                                       onChange={e => handleChangeTable(cat.id, "years_of_experience", e.target.value)}
-                                      onBlur={() => handleBlur(cat)}
                                   />
                               </td>
                               <td className="border border-gray-400 px-4 py-2">
@@ -138,10 +135,13 @@ export default function Home() {
                                       className="w-full"
                                       value={cat.salary}
                                       onChange={e => handleChangeTable(cat.id, "salary", e.target.value)}
-                                      onBlur={() => handleBlur(cat)}
                                   />
                               </td>
                               <td className="border px-4 py-2">
+                                  <button className="bg-green-500 text-white w-[100px] h-full cursor-pointer hover:bg-green-600"
+                                          onClick={() => handleSave(cat)}>
+                                      Update
+                                  </button>
                                   <button className="bg-red-500 text-white w-[100px] h-full cursor-pointer hover:bg-red-600"
                                           onClick={() => handleDelete(cat.id)}>
                                       Delete
