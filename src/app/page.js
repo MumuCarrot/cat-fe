@@ -1,6 +1,7 @@
 "use client";
 import {useEffect, useState} from "react";
 import {api} from "@/app/api/client";
+import PropTypes from 'prop-types';
 
 /**
  * @typedef {Object} Cat
@@ -10,6 +11,24 @@ import {api} from "@/app/api/client";
  * @property {number} years_of_experience
  * @property {number} salary
  */
+
+/**
+ * Form input component
+ * @param name - name of the input
+ * @param placeholder - placeholder text
+ * @param value - value of the input
+ * @param onChange - change handler
+ */
+function FormInput({ name, placeholder, value, onChange }) {
+    return <input name={name} placeholder={placeholder} value={value} onChange={onChange} className="border p-1 mr-2 flex-1" />
+}
+
+FormInput.propTypes = {
+    name: PropTypes.string.isRequired,
+    placeholder: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired || PropTypes.number.isRequired,
+    onChange: PropTypes.func.isRequired,
+}
 
 export default function Home() {
     const [cats, setCats] = useState([]);
@@ -64,10 +83,10 @@ export default function Home() {
           <div className="p-6">
               {/* Form for adding a new cat */}
               <form onSubmit={handleAddCat} className="mb-6 flex">
-                  <input name="name" placeholder="Name" value={form.name} onChange={handleChangeForm} className="border p-1 mr-2 flex-1" />
-                  <input name="breed" placeholder="Breed" value={form.breed} onChange={handleChangeForm} className="border p-1 mr-2 flex-1" />
-                  <input name="years_of_experience" placeholder="Experience" type="number" value={form.years_of_experience} onChange={handleChangeForm} className="border p-1 mr-2 flex-1" />
-                  <input name="salary" placeholder="Salary" type="number" value={form.salary} onChange={handleChangeForm} className="border p-1 mr-2 flex-1" />
+                  <FormInput name="name" placeholder="Name" value={form.name} onChange={handleChangeForm} />
+                  <FormInput name="breed" placeholder="Breed" value={form.breed} onChange={handleChangeForm} />
+                  <FormInput name="years_of_experience" placeholder="Experience" type="number" value={form.years_of_experience} onChange={handleChangeForm} />
+                  <FormInput name="salary" placeholder="Salary" type="number" value={form.salary} onChange={handleChangeForm} />
                   <button type="submit" className="bg-blue-500 text-white px-2 py-1">Add Cat</button>
               </form>
 
