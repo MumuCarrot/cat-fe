@@ -49,6 +49,11 @@ export default function Home() {
         fetchCats();
     };
 
+    const handleDelete = async (id) => {
+        await api.delete(`/api/cats/${id}/`);
+        setCats(cats.filter(cat => cat.id !== id));
+    };
+
     return (
       <main className='flex-1 flex justify-center items-center'>
           <div className="p-6">
@@ -65,12 +70,13 @@ export default function Home() {
               {loading ? <p>Loading...</p> : (
                   <table className="border-collapse border border-gray-400 w-full">
                       <thead>
-                      <tr className="bg-gray-200">
-                          <th className="border border-gray-400 px-4 py-2">ID</th>
-                          <th className="border border-gray-400 px-4 py-2">Name</th>
-                          <th className="border border-gray-400 px-4 py-2">Breed</th>
-                          <th className="border border-gray-400 px-4 py-2">Experience</th>
-                          <th className="border border-gray-400 px-4 py-2">Salary</th>
+                      <tr className="bg-gray-900">
+                          <th className="border px-4 py-2">ID</th>
+                          <th className="border px-4 py-2">Name</th>
+                          <th className="border px-4 py-2">Breed</th>
+                          <th className="border px-4 py-2">Experience</th>
+                          <th className="border px-4 py-2">Salary</th>
+                          <th className="border px-4 py-2">Actions</th>
                       </tr>
                       </thead>
                       <tbody>
@@ -110,6 +116,12 @@ export default function Home() {
                                       onChange={e => handleChangeTable(cat.id, "salary", e.target.value)}
                                       onBlur={() => handleBlur(cat)}
                                   />
+                              </td>
+                              <td className="border px-4 py-2">
+                                  <button className="bg-red-500 text-white w-[100px] h-full cursor-pointer hover:bg-red-600"
+                                          onClick={() => handleDelete(cat.id)}>
+                                      Delete
+                                  </button>
                               </td>
                           </tr>
                       ))}
