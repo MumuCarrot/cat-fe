@@ -11,6 +11,10 @@ import {api} from "@/app/api/client";
  * @property {number} salary
  */
 
+function FormInput({ name, placeholder, value, onChange }) {
+    return <input name={name} placeholder={placeholder} value={value} onChange={onChange} className="border p-1 mr-2 flex-1" />
+}
+
 export default function Home() {
     const [cats, setCats] = useState([]);
     const [form, setForm] = useState({ name: "", breed: "", years_of_experience: 0, salary: 0 });
@@ -64,10 +68,10 @@ export default function Home() {
           <div className="p-6">
               {/* Form for adding a new cat */}
               <form onSubmit={handleAddCat} className="mb-6 flex">
-                  <input name="name" placeholder="Name" value={form.name} onChange={handleChangeForm} className="border p-1 mr-2 flex-1" />
-                  <input name="breed" placeholder="Breed" value={form.breed} onChange={handleChangeForm} className="border p-1 mr-2 flex-1" />
-                  <input name="years_of_experience" placeholder="Experience" type="number" value={form.years_of_experience} onChange={handleChangeForm} className="border p-1 mr-2 flex-1" />
-                  <input name="salary" placeholder="Salary" type="number" value={form.salary} onChange={handleChangeForm} className="border p-1 mr-2 flex-1" />
+                  <FormInput name="name" placeholder="Name" value={form.name} onChange={handleChangeForm} />
+                  <FormInput name="breed" placeholder="Breed" value={form.breed} onChange={handleChangeForm} />
+                  <FormInput name="years_of_experience" placeholder="Experience" type="number" value={form.years_of_experience} onChange={handleChangeForm} />
+                  <FormInput name="salary" placeholder="Salary" type="number" value={form.salary} onChange={handleChangeForm} />
                   <button type="submit" className="bg-blue-500 text-white px-2 py-1">Add Cat</button>
               </form>
 
