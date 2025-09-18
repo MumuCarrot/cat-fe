@@ -5,11 +5,7 @@ import PropTypes from 'prop-types';
 
 /**
  * @typedef {Object} Cat
- * @property {number} id
- * @property {string} name
- * @property {string} breed
- * @property {number} years_of_experience
- * @property {number} salary
+ * @property {number}
  */
 
 /**
@@ -56,6 +52,10 @@ export default function Home() {
             ...form,
             years_of_experience: Number(form.years_of_experience),
             salary: Number(form.salary),
+        }).catch((err) => {
+            if (err?.response?.data?.error === "Invalid breed") {
+                alert("Invalid breed. Please enter a valid breed.");
+            }
         });
         setForm({ name: "", breed: "", years_of_experience: 0, salary: 0 });
         fetchCats();
@@ -68,7 +68,12 @@ export default function Home() {
 
     // Update a cat
     const handleSave = async (cat) => {
-        await api.put(`/api/cats/${cat.id}/`, cat);
+        await api.put(`/api/cats/${cat.id}/`, cat)
+            .catch((err) => {
+            if (err?.response?.data?.error === "Invalid breed") {
+                alert("Invalid breed. Please enter a valid breed.");
+            }
+        });
         fetchCats();
     };
 
@@ -104,7 +109,7 @@ export default function Home() {
                       </tr>
                       </thead>
                       <tbody>
-                      {cats.map(cat => (
+                      {cats.sort((a, b) => a.id - b.id).map(cat => (
                           <tr key={cat.id}>
                               <td className="border border-gray-400 px-4 py-2">{cat.id}</td>
                               <td className="border border-gray-400 px-4 py-2">
